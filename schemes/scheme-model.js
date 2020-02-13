@@ -1,4 +1,4 @@
-const db = require("../data/");
+const db = require("../data/dbSchemeConfig");
 
 module.exports = {
   find,
@@ -17,33 +17,29 @@ function find() {
 function findById(id) {
   return db("schemes")
     .where("id", id) /*? same as {id}*/
-    .then(scheme => (!scheme ? null : scheme));
+    .then(scheme => (!scheme.length ? null : scheme));
   // .first();
 }
+//! http://michaelavila.com/knex-querylab/
 
 function findSteps(id) {
-  return db("steps st")
-    .where(`s.id, ${id}`)
-    .join(`schemes s, st.scheme_id, s.id`)
-    .select("s.scheme_name, st.step_number, instructions");
+  return db("steps as st")
+    .select("scheme_name", "step_number", "instructions")
+    .join("schemes as s", "scheme_id", "s.id")
+    .where("s.id", id)
+    .orderBy("step_number");
 }
-/*select s.scheme_name, st.step_number, instructions from steps st
-join schemes as s on st.scheme_id=s.id
-where s.id=${id}*/
+//* select `scheme_name`, `step_number`, `instructions,` from `steps` as `st` inner join `schemes` as `s` on `scheme_id` = `s`.`id` where `s`.`id` = 4 order by `step_number` asc
 
 function add(scheme) {
   return db("schemes").insert(scheme);
 }
 //? README  Resolves to the newly inserted scheme, including `id`.
 
-// function addStep(stepData, schemeId) {
-// return db("steps").insert(stepData)
-// }
-
 function update(changes, id) {
-  return db("steps")
-    .where({ id })
-    .update(changes);
+  return db("schemes")
+    .update(changes)
+    .where({ id });
 }
 
 function remove(id) {
@@ -51,4 +47,13 @@ function remove(id) {
     .where("id", id)
     .del()
     .then(response => (!response ? null : response));
+}
+
+function addStep(step, scheme_id) {
+  const newStep = {
+    step_number: step.step_number,
+    instructions: step.instructions,
+    scheme_id: scheme_id
+  };
+  return db("steps").insert(newStep);
 }

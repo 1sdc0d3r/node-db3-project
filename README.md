@@ -1,5 +1,7 @@
 # Multi-Table Queries and Database Helpers
 
+<!--! http://michaelavila.com/knex-querylab/ -->
+
 ## Topics
 
 - Joins
@@ -38,9 +40,9 @@ Use a graphical tool like `SQLite Studio` to open `./data/northwind.db3` and exe
   ORDER BY p.productName -->
 
 - Display the OrderID, customer's Company Name and the employee's Last Name for every order. All columns should be labeled clearly. Returns 16,789 records.
-<!--! select o.id OrderId, c.companyName customerCompanyName, e.lastName employeeLastName from [order]o
-join customer c on o.customerId=c.id
-join employee e on o.employeeId=e.id  -->
+  <!--! select o.id OrderId, c.companyName customerCompanyName, e.lastName employeeLastName from [order]o
+  join customer c on o.customerId=c.id
+  join employee e on o.employeeId=e.id  -->
 
 ### Database Methods
 

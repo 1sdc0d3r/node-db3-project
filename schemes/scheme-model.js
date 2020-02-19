@@ -15,12 +15,13 @@ function find() {
 }
 
 function findById(id) {
-  return db("schemes")
-    .where("id", id) /*? same as {id}*/
-    .then(scheme => (!scheme.length ? null : scheme));
-  // .first();
+  return (
+    db("schemes")
+      // .first()
+      .where("id", id) /*? same as {id}*/
+      .then(scheme => (!scheme.length ? null : scheme))
+  );
 }
-//! http://michaelavila.com/knex-querylab/
 
 function findSteps(id) {
   return db("steps as st")

@@ -4,8 +4,7 @@ select
   ProductName,
   CategoryName
 from Product as P
-join Category as C on P.CategoryId = C.Id 
--- Display the order Id and shipper CompanyName for all orders placed before August 9 2012. Shows 429 records.
+join Category as C on P.CategoryId = C.Id -- Display the order Id and shipper CompanyName for all orders placed before August 9 2012. Shows 429 records.
   -- ! This date returns more than 429 records, Changed to different date, works
 SELECT
   Id,
@@ -13,14 +12,14 @@ SELECT
 FROM [Order] as O
 JOIN Shipper as S on O.ShipVia = S.Id
 WHERE
-  OrderDate >= '2015-08-09'
-   -- Display the name and quantity of the products ordered in order with Id 10251. Sort by ProductName. Shows 3 records.
-   select
+  OrderDate >= '2015-08-09' -- Display the name and quantity of the products ordered in order with Id 10251. Sort by ProductName. Shows 3 records.
+select
   *
-from [Order]
+from [Order] o
+JOIN OrderDetail od on o.id = od.OrderId
+JOIN Product p on od.ProductId = p.id
 WHERE
-  Id = 10251
-  -- Display the OrderID, Customer's Company Name and the employee's LastName for every order. All columns should be labeled clearly. Displays 16,789 records.
+  o.Id = 10251 -- Display the OrderID, Customer's Company Name and the employee's LastName for every order. All columns should be labeled clearly. Displays 16,789 records.
 select
   Id,
   LastName,

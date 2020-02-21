@@ -52,7 +52,6 @@ function remove(id) {
 
 function addStep(step, scheme_id) {
   const newStep = {
-    scheme_name: step.scheme_name,
     step_number: step.step_number,
     instructions: step.instructions,
     scheme_id: scheme_id
